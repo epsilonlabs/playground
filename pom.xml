@@ -159,13 +159,10 @@
 			<plugin>
 				<!-- Google Cloud Functions Framework Maven plugin This plugin allows 
 					you to run Cloud Functions Java code locally. Use the following terminal 
-					command to run a given function locally: mvn function:run -Drun.functionTarget=your.package.yourFunction -->
+					command to run a given function locally: mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.RunEpsilonFunction -Drun.port=8001 -->
 				<groupId>com.google.cloud.functions</groupId>
 				<artifactId>function-maven-plugin</artifactId>
 				<version>0.9.5</version>
-				<configuration>
-					<functionTarget>org.eclipse.epsilon.live.RunEpsilonFunction</functionTarget>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
