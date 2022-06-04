@@ -64,7 +64,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		
 		module.execute();
 		
-		response.addProperty("targetModelDiagram", new FlexmiToGraphvizFunction().run(targetModel));
+		response.addProperty("targetModelDiagram", new FlexmiToPlantUMLFunction().run(targetModel));
 	}
 	
 	protected void runEvl(EvlModule module, String flexmi, String emfatic, JsonObject response) throws Exception {
@@ -72,7 +72,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		model.setName("M");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
-		response.addProperty("validatedModelDiagram", new FlexmiToGraphvizFunction().run(model, 
+		response.addProperty("validatedModelDiagram", new FlexmiToPlantUMLFunction().run(model, 
 				Variable.createReadOnlyVariable("unsatisfiedConstraints", module.getContext().getUnsatisfiedConstraints())));
 	}
 	
@@ -81,7 +81,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		model.setName("M");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
-		response.addProperty("patternMatchedModelDiagram", new FlexmiToGraphvizFunction().run(model, 
+		response.addProperty("patternMatchedModelDiagram", new FlexmiToPlantUMLFunction().run(model, 
 				Variable.createReadOnlyVariable("matches", module.getContext().getPatternMatchTrace().getMatches())));
 	}
 	

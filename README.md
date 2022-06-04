@@ -7,8 +7,8 @@ To run the Epsilon Playground front-end, follow the instructions provided [here]
 To run the back-end locally too, you should clone this repo, run the following commands 
 
 - `mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.RunEpsilonFunction -Drun.port=8001`
-- `mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.FlexmiToGraphvizFunction -Drun.port=8002`
-- `mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.EmfaticToGraphvizFunction -Drun.port=8003`
+- `mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.FlexmiToPlantUMLFunction -Drun.port=8002`
+- `mvn function:run -Drun.functionTarget=org.eclipse.epsilon.live.EmfaticToPlantUMLFunction -Drun.port=8003`
 
 and update the frontend's `backend.json` as follows to make the front-end call the local instances of the respective web services.
 
@@ -16,8 +16,8 @@ and update the frontend's `backend.json` as follows to make the front-end call t
 {
   "service": [
     {"name": "RunEpsilonFunction", "port": "8001"},
-    {"name": "FlexmiToGraphvizFunction", "port": "8002"},
-    {"name": "EmfaticToGraphvizFunction", "port": "8003"},
+    {"name": "FlexmiToPlantUMLFunction", "port": "8002"},
+    {"name": "EmfaticToPlantUMLFunction", "port": "8003"},
     {"name": "ShortURLFunction", "url": "https://europe-west2-epsilon-live-gcp.cloudfunctions.net/short-url"}
   ]
 }
