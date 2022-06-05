@@ -4,6 +4,7 @@ skinparam roundCorner 0
 hide empty methods
 skinparam classBorderThickness 1
 !pragma layout smetana
+skinparam classFontName system-ui
 
 [%
 var colors = Sequence{"azure", "beige", "floralwhite", "lemonchiffon", "mistyrose", "palegreen", "pink", "wheat", "plum"};
