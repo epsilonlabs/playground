@@ -1,8 +1,6 @@
 package org.eclipse.epsilon.live;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.net.HttpURLConnection;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,8 @@ public abstract class EpsilonLiveFunction implements HttpFunction {
 	@Override
 	public void service(HttpRequest request, HttpResponse response) throws Exception {
 		response.appendHeader("Access-Control-Allow-Origin", "*");
-
+		response.setContentType("application/json");
+		
 		if ("OPTIONS".equals(request.getMethod())) {
 			response.appendHeader("Access-Control-Allow-Methods", "GET");
 			response.appendHeader("Access-Control-Allow-Headers", "Content-Type");
