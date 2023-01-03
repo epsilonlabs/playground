@@ -16,6 +16,7 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
+import org.eclipse.epsilon.flock.FlockModule;
 import org.eclipse.epsilon.live.egl.StringGeneratingTemplateFactory;
 
 import com.google.gson.JsonArray;
@@ -49,7 +50,8 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		module.getContext().setOutputStream(new PrintStream(outputStream));
 		
 		switch (language) {
-			case "etl": runEtl((EtlModule) module, flexmi, emfatic, secondFlexmi, secondEmfatic, response); return;
+			case "etl": runEtl((EtlModule) module, flexmi, emfatic, secondEmfatic, response); return;
+			case "flock": runFlock((FlockModule) module, flexmi, emfatic, secondEmfatic, response); return;
 			case "evl": runEvl((EvlModule) module, flexmi, emfatic, response); return;
 			case "epl": runEpl((EplModule) module, flexmi, emfatic, response); return;
 			case "egl": runEgl((IEglModule) module, flexmi, emfatic, response); return;
@@ -59,7 +61,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		
 	}
 	
-	protected void runEtl(EtlModule module, String flexmi, String emfatic, String secondFlexmi, String secondEmfatic, JsonObject response) throws Exception {
+	protected void runEtl(EtlModule module, String flexmi, String emfatic, String secondEmfatic, JsonObject response) throws Exception {
 		InMemoryEmfModel sourceModel = getInMemoryFlexmiModel(flexmi, emfatic);
 		sourceModel.setName("Source");
 		InMemoryEmfModel targetModel = getBlankInMemoryModel(secondEmfatic);
@@ -71,6 +73,23 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		module.execute();
 		
 		response.addProperty("targetModelDiagram", new FlexmiToPlantUMLFunction().run(targetModel));
+	}
+	
+	protected void runFlock(FlockModule module, String flexmi, String emfatic, String secondEmfatic, JsonObject response) throws Exception {
+		InMemoryEmfModel originalModel = getInMemoryFlexmiModel(flexmi, emfatic);
+		originalModel.setName("Original");
+		InMemoryEmfModel migratedModel = getBlankInMemoryModel(secondEmfatic);
+		migratedModel.setName("Migrated");
+		
+		module.getContext().getModelRepository().addModel(originalModel);
+		module.getContext().getModelRepository().addModel(migratedModel);
+		
+		module.getContext().setOriginalModel(originalModel);
+		module.getContext().setMigratedModel(migratedModel);
+		
+		module.execute();
+		
+		response.addProperty("targetModelDiagram", new FlexmiToPlantUMLFunction().run(migratedModel));
 	}
 	
 	protected void runEvl(EvlModule module, String flexmi, String emfatic, JsonObject response) throws Exception {
@@ -131,6 +150,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 	protected IEolModule createModule(String language) {
 		switch (language) {
 		case "etl": return new EtlModule();
+		case "flock": return new FlockModule();
 		case "evl": return new EvlModule();
 		case "epl": return new EplModule();
 		case "egl": return new EglTemplateFactoryModuleAdapter();
