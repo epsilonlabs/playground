@@ -7,12 +7,8 @@ skinparam classBorderThickness 1
 !pragma layout smetana
 skinparam classFontName system-ui
 
-[%
-var colors = getColors();
-%]
-
 [%for (c in EClass.all){%]
-[%if(c.isAbstract){%]abstract [%}%]class [%=c.name%] #[%=colors.get(c.eContainer().eContents().indexOf(c).mod(colors.size()))%] {
+[%if(c.isAbstract){%]abstract [%}%]class [%=c.name%] #[%=c.getColor()%] {
 	[%for (f in c.eStructuralFeatures){%]
 	[%=f.getLabel()%]
 	[%}%]
@@ -111,27 +107,5 @@ operation getBidirectionalReferences() {
 @cached
 operation getVisibleReferences() { 
 	return EReference.all;
-}
-
-operation EModelElement getAnnotationValue(name : String, detail : String) : Any {
-	var ann := self.eAnnotations.selectOne(a|a.source = name);
-	var det;
-
-	if (ann.isDefined()) {
-		det := ann.details.selectOne(d|d.key = detail);
-	}
-
-	if (det.isDefined()) {
-		return det.value;
-	}
-	else if (self.isTypeOf(EClass)) {
-		for (s in self.eSuperTypes) {
-			var sann := s.getAnnotationValue(name, detail);
-			if (sann.isDefined()) {
-				return sann;
-			}
-		}
-	}
-	return det;	
 }
 %]
