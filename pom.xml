@@ -90,6 +90,11 @@
 		</dependency>		
 		<dependency>
 			<groupId>org.eclipse.epsilon</groupId>
+			<artifactId>org.eclipse.epsilon.emg.engine</artifactId>
+			<version>${epsilon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.epsilon</groupId>
 			<artifactId>org.eclipse.epsilon.flexmi</artifactId>
 			<version>${epsilon.version}</version>
 		</dependency>
