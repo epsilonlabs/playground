@@ -63,7 +63,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 			case "egl": runEgl((IEglModule) module, flexmi, emfatic, response); return;
 			case "egx": runEgx((EgxModule) module, secondProgram, flexmi, emfatic, response); return;
 			case "eml": runEml((EmlModule) module, secondProgram, flexmi, emfatic, thirdFlexmi, thirdEmfatic, secondEmfatic, response); return;
-			case "emg": runEmg((EmgModule) module, flexmi, emfatic, response); return;
+			case "emg": runEmg((EmgModule) module, emfatic, response); return;
 			default: runEol((EolModule) module, flexmi, emfatic);
 		}
 		
@@ -185,8 +185,8 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		response.add("generatedFiles", generatedFiles);
 	}
 
-    protected void runEmg(EmgModule module, String flexmi, String emfatic, JsonObject response) throws Exception {
-        InMemoryEmfModel model = getInMemoryFlexmiModel(flexmi, emfatic);
+    protected void runEmg(EmgModule module, String emfatic, JsonObject response) throws Exception {
+        InMemoryEmfModel model = getBlankInMemoryModel(emfatic);
         model.setName("M");
         module.getContext().getModelRepository().addModel(model);
         module.execute();
