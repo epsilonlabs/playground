@@ -58,7 +58,8 @@ public abstract class EpsilonLiveFunction implements HttpFunction {
 		EPackage ePackage = getEPackage(emfatic);
 		resourceSet.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new FlexmiResourceFactory());
-		Resource resource = resourceSet.createResource(URI.createURI("flexmi.flexmi"));
+		// User createFileURI instead of createURI as the latter fails for EGL-based Flexmi templates
+		Resource resource = resourceSet.createResource(URI.createFileURI("/flexmi.flexmi"));
 		resource.load(new ByteArrayInputStream(flexmi.getBytes()), null);
 
 		InMemoryEmfModel model = new InMemoryEmfModel(resource);

@@ -12,6 +12,7 @@ import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.egl.IEglModule;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
+import org.eclipse.epsilon.emg.EmgModule;
 import org.eclipse.epsilon.eml.EmlModule;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.IEolModule;
@@ -62,6 +63,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 			case "egl": runEgl((IEglModule) module, flexmi, emfatic, response); return;
 			case "egx": runEgx((EgxModule) module, secondProgram, flexmi, emfatic, response); return;
 			case "eml": runEml((EmlModule) module, secondProgram, flexmi, emfatic, thirdFlexmi, thirdEmfatic, secondEmfatic, response); return;
+			case "emg": runEmg((EmgModule) module, emfatic, response); return;
 			default: runEol((EolModule) module, flexmi, emfatic);
 		}
 		
@@ -121,6 +123,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 	protected void runFlock(FlockModule module, String flexmi, String emfatic, String secondEmfatic, JsonObject response) throws Exception {
 		InMemoryEmfModel originalModel = getInMemoryFlexmiModel(flexmi, emfatic);
 		originalModel.setName("Original");
+		
 		InMemoryEmfModel migratedModel = getBlankInMemoryModel(secondEmfatic);
 		migratedModel.setName("Migrated");
 		
@@ -182,6 +185,14 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		}
 		response.add("generatedFiles", generatedFiles);
 	}
+
+    protected void runEmg(EmgModule module, String emfatic, JsonObject response) throws Exception {
+        InMemoryEmfModel model = getBlankInMemoryModel(emfatic);
+        model.setName("M");
+        module.getContext().getModelRepository().addModel(model);
+        module.execute();
+        response.addProperty("targetModelDiagram", new FlexmiToPlantUMLFunction().run(model));
+    }
 	
 	protected void runEol(EolModule module, String flexmi, String emfatic) throws Exception {
 		InMemoryEmfModel model = getInMemoryFlexmiModel(flexmi, emfatic);
@@ -199,6 +210,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		case "egl": return new EglTemplateFactoryModuleAdapter();
 		case "egx": return new EgxModule(new StringGeneratingTemplateFactory());
 		case "eml": return new EmlModule();
+		case "emg": return new EmgModule();
 		default: return new EolModule();
 		}
 	}
