@@ -3,7 +3,7 @@
 skinparam roundCorner 0
 skinparam objectBorderThickness 1
 !pragma layout smetana
-skinparam classFontName system-ui
+skinparam defaultFontName system-ui
 
 [%
 var elements = M.allInstances();

@@ -5,7 +5,7 @@ skinparam roundCorner 0
 hide empty methods
 skinparam classBorderThickness 1
 !pragma layout smetana
-skinparam classFontName system-ui
+skinparam defaultFontName system-ui
 
 [%for (e in EEnum.all){%]
 class [%=e.name%] #[%=e.getEnumColor()%] {
