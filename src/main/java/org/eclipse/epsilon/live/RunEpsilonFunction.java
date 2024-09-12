@@ -22,6 +22,8 @@ import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.flock.FlockModule;
 import org.eclipse.epsilon.live.egl.StringGeneratingTemplateFactory;
+import org.eclipse.epsilon.pinset.DatasetRule;
+import org.eclipse.epsilon.pinset.PinsetModule;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -64,11 +66,12 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 			case "egx": runEgx((EgxModule) module, secondProgram, flexmi, emfatic, response); return;
 			case "eml": runEml((EmlModule) module, secondProgram, flexmi, emfatic, thirdFlexmi, thirdEmfatic, secondEmfatic, response); return;
 			case "emg": runEmg((EmgModule) module, emfatic, response); return;
+			case "pinset": runPinset((PinsetModule) module, flexmi, emfatic, response); return;
 			default: runEol((EolModule) module, flexmi, emfatic);
 		}
 		
 	}
-	
+
 	protected void runEml(EmlModule module, String ecl, String leftFlexmi, String leftEmfatic, String rightFlexmi, String rightEmfatic, String mergedEmfatic, JsonObject response) throws Exception {
 		
 		EclModule eclModule = new EclModule();
@@ -193,6 +196,27 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
         module.execute();
         response.addProperty("targetModelDiagram", new FlexmiToPlantUMLFunction().run(model));
     }
+
+	private void runPinset(PinsetModule module, String flexmi, String emfatic, JsonObject response) throws Exception {
+		InMemoryEmfModel model = getInMemoryFlexmiModel(flexmi, emfatic);
+		model.setName("M");
+		module.getContext().getModelRepository().addModel(model);
+
+		module.persistDatasets(false);
+		module.execute();
+
+		// Put the generated CSV files in the response
+		JsonArray generatedFiles = new JsonArray();
+
+		for (DatasetRule rule : module.getDatasetRules()) {
+			JsonObject generatedFile = new JsonObject();
+			generatedFile.addProperty("path", module.getFileName(rule));
+			generatedFile.addProperty("content", rule.getDataset().toString());
+			generatedFiles.add(generatedFile);
+		}
+
+		response.add("generatedFiles", generatedFiles);
+	}
 	
 	protected void runEol(EolModule module, String flexmi, String emfatic) throws Exception {
 		InMemoryEmfModel model = getInMemoryFlexmiModel(flexmi, emfatic);
@@ -211,6 +235,7 @@ public class RunEpsilonFunction extends EpsilonLiveFunction {
 		case "egx": return new EgxModule(new StringGeneratingTemplateFactory());
 		case "eml": return new EmlModule();
 		case "emg": return new EmgModule();
+		case "pinset": return new PinsetModule();
 		default: return new EolModule();
 		}
 	}
