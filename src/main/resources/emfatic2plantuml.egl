@@ -1,14 +1,15 @@
 [%import "shared.eol";%]
 @startuml
 hide circle
-skinparam roundCorner 0
+skinparam roundCorner 3
 hide empty methods
 skinparam classBorderThickness 1
 !pragma layout smetana
 skinparam defaultFontName system-ui
+skinparam ArrowColor #7A7A7A
 
 [%for (e in EEnum.all){%]
-class [%=e.name%] #[%=e.getEnumColor()%] {
+class [%=e.name%] #[%=e.getEnumColor()%] #[%=e.getEnumColor().darken()%]{
 [%for (l in e.eLiterals){%]
 [%=l.name%]
 [%}%]
@@ -16,7 +17,7 @@ class [%=e.name%] #[%=e.getEnumColor()%] {
 [%}%]
 
 [%for (c in EClass.all){%]
-[%if(c.isAbstract){%]abstract [%}%]class [%=c.name%] #[%=c.getColor()%] {
+[%if(c.isAbstract){%]abstract [%}%]class [%=c.name%] #[%=c.getColor()%] #[%=c.getColor().darken()%] {
 	[%for (f in c.eStructuralFeatures){%]
 	[%=f.getLabel()%]
 	[%}%]
@@ -186,7 +187,7 @@ operation EEnum getEnumColor() {
 	}
 	// Else return a fixed color
 	else {
-		return "cornsilk";
+		return getUninstantiableColor();
 	}
 }
 %]
