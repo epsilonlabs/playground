@@ -88,6 +88,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.epsilon</groupId>
+			<artifactId>org.eclipse.epsilon.pinset.engine</artifactId>
+			<version>${epsilon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.epsilon</groupId>
 			<artifactId>org.eclipse.epsilon.flexmi</artifactId>
 			<version>${epsilon.version}</version>
 		</dependency>
