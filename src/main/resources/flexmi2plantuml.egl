@@ -13,9 +13,12 @@ var elements = M.allInstances();
 
 [%for (e in elements) { %]
 object "[%=e.getNodeLabel()%]" as [%=e.getNodeId()%]<<[%=e.eClass().name%]>> {
-	[%var attributes = e.eClass().getEAllAttributes().select(attr|e.eIsSet(attr));%]
+	[%var attributes = e.eClass().getEAllAttributes();%]
 	[%for (attr in attributes){%]
-	[%=attr.name%] = [%=e.getAttributeValue(attr)%]
+	[%var value = e.getAttributeValue(attr);%]
+	[%if (value <> ""){%]
+	[%=attr.name%] = [%=value%]
+	[%}%]
 	[%}%]
 }
 [%}%]
