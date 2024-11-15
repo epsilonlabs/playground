@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.live;
+package org.eclipse.epsilon.playground;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -21,9 +21,9 @@ import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.flock.FlockModule;
-import org.eclipse.epsilon.live.egl.StringGeneratingTemplateFactory;
 import org.eclipse.epsilon.pinset.DatasetRule;
 import org.eclipse.epsilon.pinset.PinsetModule;
+import org.eclipse.epsilon.playground.egl.StringGeneratingTemplateFactory;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

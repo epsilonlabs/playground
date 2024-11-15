@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.live;
+package org.eclipse.epsilon.playground;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

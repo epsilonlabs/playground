@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.live;
+package org.eclipse.epsilon.playground;
 
 import com.google.gson.JsonObject;
 

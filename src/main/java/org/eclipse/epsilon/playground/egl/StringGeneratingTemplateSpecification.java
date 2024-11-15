@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.live.egl;
+package org.eclipse.epsilon.playground.egl;
 
 import java.io.File;
 import java.net.URI;
