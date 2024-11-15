@@ -12,7 +12,7 @@ import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 
-public class EmfaticToPlantUMLFunction extends EpsilonLiveFunction {
+public class EmfaticToPlantUMLFunction extends PlaygroundFunction {
 	
 	@Override
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {

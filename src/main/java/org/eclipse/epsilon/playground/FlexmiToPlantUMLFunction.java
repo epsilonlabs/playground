@@ -14,7 +14,7 @@ import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 
-public class FlexmiToPlantUMLFunction extends EpsilonLiveFunction {
+public class FlexmiToPlantUMLFunction extends PlaygroundFunction {
 
 	public static void main(String[] args) throws Exception {
 		System.out.println(

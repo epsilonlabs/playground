@@ -11,7 +11,7 @@ import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.google.gson.JsonObject;
 
-public class ShortURLFunction extends EpsilonLiveFunction {
+public class ShortURLFunction extends PlaygroundFunction {
 	
 	public static void main(String[] args) throws Exception {
 		JsonObject shortenRequest = new JsonObject();

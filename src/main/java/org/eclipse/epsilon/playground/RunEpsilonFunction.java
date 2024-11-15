@@ -28,7 +28,7 @@ import org.eclipse.epsilon.playground.egl.StringGeneratingTemplateFactory;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class RunEpsilonFunction extends EpsilonLiveFunction {
+public class RunEpsilonFunction extends PlaygroundFunction {
 	@Override
 	public void serviceImpl(JsonObject request, JsonObject response) throws Exception {
 		
