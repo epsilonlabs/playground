@@ -1,3 +1,7 @@
+**NOTE:** This repository is now deprecated, as it has been superseded by the Micronaut-based microservices in this project:
+
+https://github.com/epsilonlabs/playground-backend
+
 # Epsilon Playground Back-End
 
 This repo hosts a copy of the back-end code of the [Epsilon Playground](https://www.eclipse.org/epsilon/playground/). The source code for its front-end is in [Epsilon's website repo](https://github.com/eclipse-epsilon/epsilon-website/tree/main/mkdocs/docs/playground).
